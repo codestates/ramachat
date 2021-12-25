@@ -19,8 +19,6 @@
 <details>
 <summary>라마챗으로 이동하기</summary>
 <div markdown="1">
-  
+<a href="http://ramachat-client-bucket-1.s3-website.us-east-2.amazonaws.com/" target="_blank">라마챗으로 이동하기</a>  
 </div>
-  
 </details>
-<a href="http://ramachat-client-bucket-1.s3-website.us-east-2.amazonaws.com/" target="_blank">라마챗으로 이동하기</a>
