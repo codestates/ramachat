@@ -11,27 +11,24 @@ module.exports = async (req, res) => {
   }
 
   const id = accessTokenData.id;
-  console.log(id);
 
   //EpisodeInfos 찾기
   // const sqlReplyNum = `select count(*) as replyNum from Comments as c join Users as u on u.id = c.userId where c.userId = ${id} && parentCommentId IS NOT NULL`;
   // const sqlLikeNum = `select count(*) as likeNum from Comments as c join Likes as l on c.id = l.targetId`;
-  const sql = `select DISTINCT c.id,c.content,c.parentCommentId, e.dramaId, e.seasonIndex, e.episodeIndex ,c.createdAt from EpisodeInfos as e join Comments as c on e.id=c.episodeId join Users as u on u.id = c.userId where u.id = ${id} && c.parentCommentId IS NULL;`;
+  const sql = `select DISTINCT c.id,c.content,c.parentCommentId, e.dramaId, e.seasonIndex, e.episodeIndex ,c.createdAt from EpisodeInfos as e join Comments as c on e.id=c.episodeId join Users as u on u.id = c.userId where u.id = ${id};`;
   const epiData = await sequelize
     .query(sql, { type: sequelize.QueryTypes.SELECT })
     .then((data) => {
       return data;
     })
-    .catch((err) => {
-      console.log('err');
-    });
+    .catch((err) => {});
   // const likeNum = await sequelize
   //   .query(sqlLikeNum, { type: sequelize.QueryTypes.SELECT })
   //   .then((data) => {
   //     return data;
   //   })
   //   .catch((err) => {
-  //     console.log('err');
+  //
   //   });
   // const replyNum = await sequelize
   //   .query(sqlReplyNum, { type: sequelize.QueryTypes.SELECT })
@@ -39,7 +36,7 @@ module.exports = async (req, res) => {
   //     return data;
   //   })
   //   .catch((err) => {
-  //     console.log('err');
+  //
   //   });
 
   const result = epiData.map((ele) => {
@@ -87,7 +84,7 @@ module.exports = async (req, res) => {
 //     where: { parentCommentId: { [Op.ne]: null }, userId: id },
 //   })
 //     .then((data) => {
-//       console.log(222, data);
+//
 //       let i = data.map((ele) => {
 //         return ele.dataValues.replyNum;
 //       });
@@ -97,7 +94,7 @@ module.exports = async (req, res) => {
 //       res.status(500).send(err);
 //     });
 
-//   console.log(666, replyNums);
+//
 //   let result = likeNum.map((ele) => {
 //     let result2 = ({
 //       episodeId,
@@ -113,7 +110,7 @@ module.exports = async (req, res) => {
 //     });
 //     return result2;
 //   });
-//   console.log(999, result);
+//
 // };
 
 // const replyNums = await Comments.findAll({
@@ -137,7 +134,7 @@ module.exports = async (req, res) => {
 //   where: { userId: id },
 // });
 
-// console.log(333, replyNum);
+//
 
 //EpisodeInfos
 //Reply
@@ -163,6 +160,6 @@ module.exports = async (req, res) => {
 //     },
 //   })
 //     .then((data) => {
-//       console.log(555, data);
+//
 //     });
 // };

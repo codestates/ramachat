@@ -36,25 +36,24 @@ module.exports = async (req, res) => {
     },
     where: { episodeId, parentCommentId: null },
     order: [['createdAt', 'DESC']],
-  })
-    .then((result) => result)
-    .catch((err) => res.status(500).send('err'));
+  }).catch((err) => {
+    res.status(500).send('err');
+  });
 
   let userId = accessTokenData === null ? -1 : accessTokenData.id;
   let likedComments = await sequelize
     .query(
-      `SELECT c.id FROM Comments AS c JOIN Likes AS l ON c.id = l.targetId WHERE c.episodeId = ${episodeId} and l.userId = ${userId}`
+      `SELECT c.id FROM Comments AS c JOIN Likes AS l ON c.id = l.targetId WHERE c.episodeId = ${episodeId} and l.userId = ${userId}`,
+      { type: sequelize.QueryTypes.SELECT }
     )
     .then((result) => {
-      return result[0].map((el) => {
-        console.log('id', el.id);
+      return result.map((el) => {
         return el.id;
       });
     })
     .catch((err) => {
       res.status(500).send('err');
     });
-  console.log('likedComments', likedComments);
 
   // 답글 개수 조회
   const replyNums = await Comments.findAll({
@@ -64,16 +63,20 @@ module.exports = async (req, res) => {
     ],
     where: { parentCommentId: { [Op.ne]: null }, episodeId },
     group: ['parentCommentId'],
-  }).then((result) => {
-    //console.log(result);
-    let cnt = {};
-    result.forEach((data) => {
-      const { parentCommentId, replyNum } = data.dataValues;
-      cnt[parentCommentId] = replyNum;
-    });
-    return cnt;
-  });
-  //console.log(replyNums);
+  })
+    .then((result) => {
+      //
+      if (result.length === 0) return {};
+      else {
+        let cnt = {};
+        result.forEach((data) => {
+          const { parentCommentId, replyNum } = data.dataValues;
+          cnt[parentCommentId] = replyNum;
+        });
+        return cnt;
+      }
+    })
+    .catch((err) => {});
 
   try {
     // 응답 객체 세팅 => 댓글 정보
@@ -89,10 +92,10 @@ module.exports = async (req, res) => {
         updatedAt,
       } = comment.dataValues);
       commentResponse.replyNum = replyNums[id] === undefined ? 0 : replyNums[id];
-      commentResponse.liked = likedComments.includes(id);
+      commentResponse.liked =
+        likedComments === (undefined || null) ? 0 : likedComments.includes(id);
       return commentResponse;
     });
-    //
     res.status(200).json({ comments: commentArr });
   } catch (err) {
     res.status(500).send('err');

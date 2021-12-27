@@ -120,7 +120,7 @@ export default function MyPagePersonal({ tokenState, handleLogout }) {
       .then((res) => {
         setMyPageInfo(res.data.data.userInfo);
       })
-      .catch(() => console.log('getMyPage 에러'));
+      .catch(() => {});
   };
 
   const changePassword = () => {
@@ -151,7 +151,6 @@ export default function MyPagePersonal({ tokenState, handleLogout }) {
         // * 에러 메시지
         const errCode = err.response.status;
         if (errCode === 400) {
-          console.log('400!!');
           setModalMsg('현재 입력하신 비밀번호가\n일치하지 않습니다!');
           setIsOpen(!isOpen);
         } else if (errCode === 422) {
@@ -161,7 +160,6 @@ export default function MyPagePersonal({ tokenState, handleLogout }) {
           setModalMsg('비밀번호 변경에 실패하였습니다!');
           setIsOpen(!isOpen);
         }
-        console.log('changePassword 에러');
       });
   };
 
@@ -178,9 +176,8 @@ export default function MyPagePersonal({ tokenState, handleLogout }) {
       .then(() => {
         setCheckSignout(true);
       })
-      .catch(() => console.log('signOut 에러'));
+      .catch(() => {});
   };
-  console.log(checkSignout);
 
   // 모달 코드
   const [isOpen, setIsOpen] = useState(false);
@@ -190,10 +187,8 @@ export default function MyPagePersonal({ tokenState, handleLogout }) {
   };
 
   const closeChangeHandler = () => {
-    console.log('closeChangeHandler');
     // 패스워드 바뀐 후 => 요청 성공
     if (modalMsg === '비밀번호 변경이 완료되었습니다!') {
-      console.log('성공!!');
       setIsChange(false);
       setPasswordInfo({
         nowPassword: '',

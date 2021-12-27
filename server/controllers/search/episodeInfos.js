@@ -9,7 +9,6 @@ module.exports = async (req, res) => {
     dramaId = req.query['drama-id'];
     seasonIndex = req.query['season-index'];
   } catch (err) {
-    console.log(err);
     res.status(400).send('Please provide all necessary information');
   }
 

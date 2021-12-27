@@ -10,8 +10,6 @@ module.exports = (req, res) => {
 
   const notiId = req.params.notiId;
 
-  console.log(notiId);
-
   if (!notiId) {
     return res.status(500).send('err');
   }

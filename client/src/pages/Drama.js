@@ -61,11 +61,9 @@ const EpisodeList = styled.article`
 `;
 
 export default function Drama() {
-  console.log('drama comp');
   const [drama, setDrama] = useState({});
   // const dramaId = new URLSearchParams(useLocation().search).get('drama-id');
   const dramaId = useParams().id;
-  console.log(dramaId);
 
   useEffect(() => {
     setDrama({});

@@ -3,7 +3,6 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 export function getEpisodeInfos(dramaId, seasonNumber) {
-  console.log('api call made');
   return axios
     .get(
       `${process.env.REACT_APP_SERVER_URL}/episode-infos?drama-id=${dramaId}&season-index=${seasonNumber}`
@@ -14,7 +13,6 @@ export function getEpisodeInfos(dramaId, seasonNumber) {
 }
 
 export function getEpisodeComments(tokenState, episodeId) {
-  console.log('getting comments', episodeId);
   return axios
     .get(`${process.env.REACT_APP_SERVER_URL}/comments?episode-id=${episodeId}`, {
       headers: {
@@ -22,7 +20,6 @@ export function getEpisodeComments(tokenState, episodeId) {
       },
     })
     .then((result) => {
-      console.log('코멘트 데이터', result.data.comments);
       return result.data.comments;
     });
 }
@@ -39,7 +36,6 @@ export function postComment(
   // commentNum,
   parentCommentId
 ) {
-  console.log('sending new comment');
   console.log(
     tokenState,
     userId,
@@ -74,7 +70,6 @@ export function postComment(
       }
     )
     .then((result) => {
-      console.log(result);
       return result;
     });
 }
@@ -87,7 +82,6 @@ export function deleteComment(tokenState, commentId) {
       },
     })
     .then((result) => {
-      console.log(result);
       return result;
     });
 }
@@ -103,7 +97,7 @@ export function getReplies(tokenState, parentCommentId) {
       }
     )
     .then((result) => {
-      // console.log('응답 코멘트: ', result.data.comments);
+      //
       return result.data.comments;
     });
 }
@@ -122,9 +116,7 @@ export function modifyComment(tokenState, commentId, newContent) {
         },
       }
     )
-    .then((result) => {
-      console.log(result);
-    });
+    .then((result) => {});
 }
 
 export function likeComment(tokenState, commentId) {
@@ -139,7 +131,6 @@ export function likeComment(tokenState, commentId) {
       }
     )
     .then((result) => {
-      console.log('liked 응답 : ', result);
       return result.data.liked;
     });
 }

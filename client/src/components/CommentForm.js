@@ -37,7 +37,6 @@ export default function CommentForm({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleChange = (e) => {
     setContent(e.target.value);
-    console.log(content);
   };
   const openModalHandler = () => {
     setIsModalOpen(!isModalOpen);

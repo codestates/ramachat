@@ -46,7 +46,6 @@ export default function MyPageActivities({ tokenState }) {
   const token = tokenState ? tokenState : sessionStorage.getItem('token');
   const [myComments, setMyComments] = useState({});
   const commentsArray = myComments ? Object.values(myComments) : undefined;
-  console.log(commentsArray);
 
   const getMyComment = () => {
     axios
@@ -60,7 +59,7 @@ export default function MyPageActivities({ tokenState }) {
       .then((data) => {
         setMyComments(data.data.data.reverse());
       })
-      .catch(() => console.log('getMyComment 에러'));
+      .catch((err) => {});
   };
 
   useEffect(() => {

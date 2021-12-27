@@ -67,6 +67,7 @@ export default function Comment({
   editHandler,
   deleteHandler,
   likeHandler,
+  replyHandeler,
 }) {
   const [isModelOpen, setIsModalOpen] = useState(false);
   // const [hasDeleted, setHasdeleted] = useState(false);
@@ -113,7 +114,8 @@ export default function Comment({
       userId,
     };
     setReplies([newReply, ...replies]);
-    setReplyNum(replyNum + 1);
+    replyHandeler(parentCommentId, 1);
+    //setReplyNum(comment.replyNum + 1);
   };
 
   // const [content, setContent] = useState(comment.content);
@@ -149,16 +151,17 @@ export default function Comment({
     ]);
   };
 
-  const [replyNum, setReplyNum] = useState(comment.replyNum);
+  //const [replyNum, setReplyNum] = useState(comment.replyNum);
 
   const deleteReplyHandler = (replyId) => {
     const idx = replies.findIndex((rep) => rep.id === replyId);
     setReplies([...replies.slice(0, idx), ...replies.slice(idx + 1)]);
-    setReplyNum(replyNum - 1);
+    replyHandeler(replies[idx].parentCommentId, 1);
+    //setReplyNum(replyNum - 1);
   };
 
-  const [liked, setLiked] = useState(comment.liked);
-  const [likedNum, setLikedNum] = useState(comment.likeNum);
+  // const [liked, setLiked] = useState(comment.liked);
+  // const [likedNum, setLikedNum] = useState(comment.likeNum);
 
   const handleLike = () => {
     likeComment(tokenState, comment.id).then((result) => {
@@ -212,7 +215,7 @@ export default function Comment({
 
             <IconButton color="grey" onClick={openReplyHandler}>
               <i class="fas fa-comment-alt"></i> <span className="icon-name">Reply</span>{' '}
-              {replyNum}
+              {comment.replyNum}
             </IconButton>
           </div>
           {comment.userId === userId ? (

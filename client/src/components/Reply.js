@@ -87,8 +87,8 @@ export default function Reply({
     });
   };
 
-  const [liked, setLiked] = useState(reply.liked);
-  const [likedNum, setLikedNum] = useState(reply.likeNum);
+  // const [liked, setLiked] = useState(reply.liked);
+  // const [likedNum, setLikedNum] = useState(reply.likeNum);
 
   const handleLike = () => {
     likeComment(tokenState, reply.id).then((result) => {

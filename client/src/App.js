@@ -72,7 +72,6 @@ function App() {
 
   useEffect(() => {
     isAuthenticated();
-    console.log('token updated');
   }, [tokenState]);
 
   return (
