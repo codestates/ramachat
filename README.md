@@ -12,7 +12,14 @@
 ## Wiki에서 더 많은 내용 확인하기
 [Wiki로 이동하기](https://github.com/codestates/ramachat/wiki)
 
-## 팀원 Worklog 보러가기
+## 팀원 소개
+|**이름**|포지션|Github|
+|:---:|:---:|:---:|
+|박재민|Front-End|[JAM-PARK](https://github.com/JAM-PARK)|
+|이지영|Front-End|[alexjleee](https://github.com/alexjleee)|
+|위다빈|Back-End|[widalida26](https://github.com/widalida26)|
+|김동언|Back-End|[inde153](https://github.com/inde153)|
+
 [Worklog로 이동하기](https://github.com/codestates/ramachat/wiki/%E2%9C%8F%EF%B8%8F-Worklog)
 
 ## 라마챗 체험해보기
