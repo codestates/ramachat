@@ -4,7 +4,6 @@ const { isAuthorized } = require('../tokenFunctions');
 module.exports = (req, res) => {
   const accessTokenData = isAuthorized(req.headers.authorization);
 
-  console.log(accessTokenData);
   if (accessTokenData === null) {
     res.status(401).send({ data: null, message: 'not authorized' });
   }

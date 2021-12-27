@@ -39,9 +39,7 @@ const CommentInfoContainer = styled.div`
 export default function ActivityComment({ comment, userId }) {
   const [content, setContent] = useState(comment.content);
 
-  const handleLink = () => {
-    console.log('링크로 이동 수정');
-  };
+  const handleLink = () => {};
 
   const createdAt = new Date(comment.createdAt).toLocaleString('ko-KR', {
     timeZone: 'Asia/Seoul',

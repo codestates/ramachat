@@ -3,7 +3,6 @@ const { isAuthorized } = require('../tokenFunctions');
 const { decrypt, encrypt } = require('../users/crypto');
 
 module.exports = (req, res) => {
-  console.log('body', req.body);
   const accessTokenData = isAuthorized(req.headers.authorization);
 
   if (accessTokenData === null) {
@@ -24,7 +23,7 @@ module.exports = (req, res) => {
     .then((data) => {
       if (data.password !== dbpw) {
         const dbpw1 = decrypt(data.password);
-        console.log(dbpw1);
+
         return res.status(400).send('BadParameterException');
       }
       if (data.password === dbnpw) {

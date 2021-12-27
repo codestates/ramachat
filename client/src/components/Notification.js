@@ -73,13 +73,12 @@ export default function Notification({
       .then(() => {
         setIsDeleted(true);
       })
-      .catch(() => console.log('handleDelete 에러'));
+      .catch(() => {});
   };
 
   // 체크 기능
   const [colorChangeIsChecked, setColorChangeIsChecked] = useState(propsIsCheckedFromDb);
   const [isHidden, setIsHidden] = useState(propsIsCheckedFromDb);
-  console.log(isHidden);
 
   const handleCheck = () => {
     axios
@@ -99,7 +98,7 @@ export default function Notification({
         setColorChangeIsChecked(1);
         setIsHidden(1);
       })
-      .catch(() => console.log('handleCheck 에러'));
+      .catch(() => {});
   };
 
   return (

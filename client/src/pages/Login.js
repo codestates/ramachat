@@ -63,7 +63,6 @@ export default function Login({ handleResponseSuccess }) {
 
   const handleInputValue = (target) => (e) => {
     setLoginInfo({ ...loginInfo, [target]: e.target.value });
-    console.log(loginInfo);
   };
 
   const handleLogin = () => {

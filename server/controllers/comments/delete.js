@@ -1,6 +1,5 @@
-const { Comments } = require('../../models');
-const { EpisodeInfos } = require('../../models');
-const { Notifications } = require('../../models');
+const Op = require('sequelize').Op;
+const { EpisodeInfos, Comments, Notifications } = require('../../models');
 const { isAuthorized } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
@@ -20,7 +19,7 @@ module.exports = async (req, res) => {
   }
 
   // 인증 성공
-  // 삭제할 댓글의 에피소드 아이디 조회
+  // 삭제할 댓글의 아이디 조회
   const commentToDelete = await Comments.findOne({ where: { id: commentId } })
     .then((result) => {
       // 삭제할 댓글이 없는 경우
@@ -33,14 +32,15 @@ module.exports = async (req, res) => {
       res.status(500).send('err');
     });
 
-  if (!commentToDelete) {
-    return;
-  }
-
   const { userId, episodeId } = commentToDelete.dataValues;
 
   // 댓글 삭제
-  await Comments.destroy({ where: { id: commentId } }).catch((err) => {
+  // await Comments.destroy({ where: { id: commentId } }).catch((err) => {
+  //   res.status(500).send('err');
+  // });
+  await Comments.destroy({
+    where: { [Op.or]: [{ id: commentId }, { parentCommentId: commentId }] },
+  }).catch((err) => {
     res.status(500).send('err');
   });
 

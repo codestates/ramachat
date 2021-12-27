@@ -92,7 +92,6 @@ export default function Signup() {
         } else {
           setErrorMessage('회원가입에 실패하였습니다!');
         }
-        console.log('handleSignup 에러');
       });
   };
 
@@ -125,7 +124,6 @@ export default function Signup() {
       setEmail(emailCurrent);
 
       if (!emailRegex.test(emailCurrent)) {
-        console.log('이메일 형식이 틀렸어요! 다시 확인해주세요!');
         setEmailMessage('이메일 형식이 틀렸어요! 다시 확인해주세요!');
         setIsUserId(false);
       } else {
@@ -198,7 +196,6 @@ export default function Signup() {
 
   const openModalHandler = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
   };
 
   useEffect(() => {

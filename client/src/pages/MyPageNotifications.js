@@ -47,7 +47,6 @@ export default function MyPageNotifications({ tokenState }) {
   const token = tokenState ? tokenState : sessionStorage.getItem('token');
   const [myNotifications, setMyNotifications] = useState([]);
   const notiArray = myNotifications ? myNotifications : [];
-  console.log(notiArray);
 
   const getMyNotifications = () => {
     axios
@@ -61,7 +60,7 @@ export default function MyPageNotifications({ tokenState }) {
       .then((data) => {
         setMyNotifications(data.data.data.reverse());
       })
-      .catch(() => console.log('getMyNotifications 에러'));
+      .catch((err) => {});
   };
 
   useEffect(() => {

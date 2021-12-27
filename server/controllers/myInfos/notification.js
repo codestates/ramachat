@@ -3,19 +3,16 @@ const { isAuthorized } = require('../tokenFunctions');
 const sequelize = require('../../models').sequelize;
 
 module.exports = (req, res) => {
-  console.log(111);
   const accessTokenData = isAuthorized(req.headers.authorization);
 
   if (accessTokenData === null) {
     res.status(401).send({ data: null, message: 'not authorized' });
   }
 
-  console.log(accessTokenData);
   const id = accessTokenData.id;
 
   const sql = `Select n.id, n.userId, n.commentId, c.content, n.isChecked as isChecked from Comments c join ( Select noti.id , noti.userId , noti.commentId ,noti.isChecked, com.parentCommentId From Notifications as noti  Join Comments as com on noti.commentId = com.id where com.userId!=${id}) as n On n.parentCommentId = c.id where c.userId = ${id}`;
   sequelize.query(sql, { type: sequelize.QueryTypes.SELECT }).then((data) => {
-    console.log(333, data);
     return res.status(200).json({ data: data });
   });
 };
@@ -29,7 +26,7 @@ module.exports = (req, res) => {
 //   Notifications.findAll({
 //     where: { commentId: id },
 //   }).then((result) => {
-//     console.log(999, result);
+//
 //   });
 // });
 
@@ -43,5 +40,5 @@ module.exports = (req, res) => {
 //     };
 //     return dataResult;
 //   });
-//   console.log(888, result);
+//
 // });

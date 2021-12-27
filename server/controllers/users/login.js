@@ -5,8 +5,6 @@ const { encrypt, decrypt } = require('./crypto');
 module.exports = (req, res) => {
   const { userId, password } = req.body;
 
-  console.log(userId, password);
-
   Users.findOne({
     where: {
       userId,
@@ -30,7 +28,6 @@ module.exports = (req, res) => {
       res.status(200).json({ data: { accessToken: accessToken }, message: 'ok' });
     })
     .catch((err) => {
-      console.log(err);
       return res.status(500).send('err');
     });
 };

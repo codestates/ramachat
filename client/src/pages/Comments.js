@@ -125,6 +125,7 @@ export default function Comments({ tokenState, userInfo }) {
   const [comments, setComments] = useState([]);
 
   const addNewComment = (content, createdAt, episodeId, id, userId) => {
+    const idx = comments.findIndex((comment) => comment.id === id);
     const newComment = {
       content,
       createdAt,
@@ -159,9 +160,6 @@ export default function Comments({ tokenState, userInfo }) {
       ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/624px-No-Image-Placeholder.svg.png'
       : 'https://www.themoviedb.org/t/p/w1280' + episode.still_path;
 
-  console.log(comments);
-  console.log('episode id', episode.id);
-
   const editHandler = (commentId, newContent) => {
     const idx = comments.findIndex((comment) => comment.id === commentId);
     // let obj = comments[idx];
@@ -187,6 +185,21 @@ export default function Comments({ tokenState, userInfo }) {
         ...comments[idx],
         liked: isLiked,
         likeNum: isLiked ? ++comments[idx].likeNum : --comments[idx].likeNum,
+      },
+      ...comments.slice(idx + 1),
+    ]);
+  };
+
+  const replyHandler = (commentId, addNum) => {
+    const idx = comments.findIndex((comment) => comment.id === commentId);
+    let newReplyNum = comments[idx].replyNum + addNum;
+    setComments([
+      ...comments.slice(0, idx),
+      {
+        ...comments[idx],
+        //liked: isLiked,
+        replyNum: newReplyNum,
+        //isReplyOpen:
       },
       ...comments.slice(idx + 1),
     ]);
@@ -231,6 +244,7 @@ export default function Comments({ tokenState, userInfo }) {
               editHandler={editHandler}
               deleteHandler={deleteHandler}
               likeHandler={likeHandler}
+              replyHandeler={replyHandler}
             />
           ))}
         </CommentsList>
